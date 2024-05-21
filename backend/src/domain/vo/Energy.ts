@@ -3,4 +3,12 @@ export default class Energy {
         private quantityKWh: number,
         private price: number,
     ) {}
+
+    getQuantityKWh() {
+        return this.quantityKWh;
+    }
+
+    getPrice() {
+        return this.price;
+    }
 }
