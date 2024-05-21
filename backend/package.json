@@ -11,6 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.12",
+    "prisma": "^5.14.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0"
   }
 }
