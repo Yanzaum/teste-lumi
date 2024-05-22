@@ -26,13 +26,13 @@ describe("InvoiceRepositoryPrisma", () => {
     it("should create an invoice", async () => {
       await invoiceRepository.save(invoice);
       
-      const invoices = await invoiceRepository.get(BigInt(7202788969))
+      const invoices = await invoiceRepository.getByCustomerNumber(BigInt(7202788969))
 
       expect(invoices.length).toBe(1);
     });
 
     it("should return an empty array if no invoice found", async () => {
-      const invoices = await invoiceRepository.get(BigInt(7202788968))
+      const invoices = await invoiceRepository.getByCustomerNumber(BigInt(7202788968))
 
       expect(invoices.length).toBe(0);
     })
