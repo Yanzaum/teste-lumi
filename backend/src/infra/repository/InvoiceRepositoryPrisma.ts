@@ -22,7 +22,21 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             }
         })
     }
-    async get(customerNumber: bigint): Promise<Invoice[]> {
+
+    async getAll(): Promise<Invoice[]> {
+        const invoices = await this.prisma.invoice.findMany();
+        return invoices.map(invoice => Invoice.restore(
+            invoice.id,
+            invoice.customerNumber,
+            invoice.reference,
+            new Energy(invoice.eletricPowerkWh, invoice.eletricPowerValue),
+            new Energy(invoice.eletricSCEEEkWh, invoice.eletricSCEEEValue),
+            new Energy(invoice.eletricGDIkWh, invoice.eletricGDIValue),
+            invoice.publicLightingContribution
+        ))
+    }
+
+    async getByCustomerNumber(customerNumber: bigint): Promise<Invoice[]> {
         const invoices = await this.prisma.invoice.findMany({
             where: {
                 customerNumber: customerNumber
@@ -38,5 +52,4 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             invoice.publicLightingContribution
         ))
     }
-    
 }
