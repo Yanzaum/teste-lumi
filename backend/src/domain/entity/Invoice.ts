@@ -1,23 +1,27 @@
 import Energy from "domain/vo/Energy";
-import crypto from "node:crypto";
+import crypto from 'crypto';
 
 export default class Invoice {
     private constructor(
         private id: string,
         private customerNumber: bigint,
         private reference: string,
-        private eletricPower: Energy,
-        private eletricSCEEE: Energy,
-        private eletricGDI: Energy,
+        private eletricPower: Energy | null,
+        private eletricSCEEE: Energy | null,
+        private eletricGDI: Energy | null,
+        private eletricCompensated: Energy | null,
+        private eletricHFP: Energy | null,
         private publicLightingContribution: number
     ) {}
 
     static create(
         customerNumber: bigint,
         reference: string,
-        eletricPower: Energy,
-        eletricSCEEE: Energy,
-        eletricGDI: Energy,
+        eletricPower: Energy | null,
+        eletricSCEEE: Energy | null,
+        eletricGDI: Energy | null,
+        eletricCompensated: Energy | null,
+        eletricHFP: Energy | null,
         publicLightingContribution: number
     ) {
         return new Invoice(
@@ -27,6 +31,8 @@ export default class Invoice {
             eletricPower,
             eletricSCEEE,
             eletricGDI,
+            eletricCompensated,
+            eletricHFP,
             publicLightingContribution
         );
     }
@@ -35,9 +41,11 @@ export default class Invoice {
         id: string,
         customerNumber: bigint,
         reference: string,
-        eletricPower: Energy,
-        eletricSCEEE: Energy,
-        eletricGDI: Energy,
+        eletricPower: Energy | null,
+        eletricSCEEE: Energy | null,
+        eletricGDI: Energy | null,
+        eletricCompensated: Energy | null,
+        eletricHFP: Energy | null,
         publicLightingContribution: number
     ) {
         return new Invoice(
@@ -47,6 +55,8 @@ export default class Invoice {
             eletricPower,
             eletricSCEEE,
             eletricGDI,
+            eletricCompensated,
+            eletricHFP,
             publicLightingContribution
         );
     }
@@ -77,5 +87,13 @@ export default class Invoice {
 
     getPublicLightingContribution() {
         return this.publicLightingContribution;
+    }
+
+    getEletricCompensated() {
+        return this.eletricCompensated;
+    }
+
+    getEletricHFP() {
+        return this.eletricHFP;
     }
 }
