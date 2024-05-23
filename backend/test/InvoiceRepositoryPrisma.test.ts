@@ -12,6 +12,8 @@ describe("InvoiceRepositoryPrisma", () => {
       new Energy(100, 95.19),
       new Energy(1299, 659.82),
       new Energy(1299, -633.04),
+      new Energy(1121, -732.15),
+      new Energy(1299, 0),
       41.19
     )
   
