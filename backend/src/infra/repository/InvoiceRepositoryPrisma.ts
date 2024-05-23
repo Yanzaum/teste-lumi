@@ -12,12 +12,16 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
                 id: invoice.getId(),
                 customerNumber: invoice.getCustomerNumber(),
                 reference: invoice.getReference(),
-                eletricPowerkWh: invoice.getEletricPower().getQuantityKWh(),
-                eletricPowerValue: invoice.getEletricPower().getPrice(),
-                eletricSCEEEkWh: invoice.getEletricSCEEE().getQuantityKWh(),
-                eletricSCEEEValue: invoice.getEletricSCEEE().getPrice(),
-                eletricGDIkWh: invoice.getEletricGDI().getQuantityKWh(),
-                eletricGDIValue: invoice.getEletricGDI().getPrice(),
+                eletricPowerkWh: invoice.getEletricPower()?.getQuantityKWh(),
+                eletricPowerValue: invoice.getEletricPower()?.getPrice(),
+                eletricSCEEEkWh: invoice.getEletricSCEEE()?.getQuantityKWh(),
+                eletricSCEEEValue: invoice.getEletricSCEEE()?.getPrice(),
+                eletricGDIkWh: invoice.getEletricGDI()?.getQuantityKWh(),
+                eletricGDIValue: invoice.getEletricGDI()?.getPrice(),
+                eletricCompensatedkWh: invoice.getEletricCompensated()?.getQuantityKWh(),
+                eletricCompensatedValue: invoice.getEletricCompensated()?.getPrice(),
+                eletricHFPkWh: invoice.getEletricHFP()?.getQuantityKWh(),
+                eletricHFPValue: invoice.getEletricHFP()?.getPrice(),
                 publicLightingContribution: invoice.getPublicLightingContribution()
             }
         })
@@ -29,9 +33,11 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             invoice.id,
             invoice.customerNumber,
             invoice.reference,
-            new Energy(invoice.eletricPowerkWh, invoice.eletricPowerValue),
-            new Energy(invoice.eletricSCEEEkWh, invoice.eletricSCEEEValue),
-            new Energy(invoice.eletricGDIkWh, invoice.eletricGDIValue),
+            new Energy(invoice.eletricPowerkWh || undefined, invoice.eletricPowerValue || undefined),
+            new Energy(invoice.eletricSCEEEkWh || undefined, invoice.eletricSCEEEValue || undefined),
+            new Energy(invoice.eletricGDIkWh || undefined, invoice.eletricGDIValue || undefined),
+            new Energy(invoice.eletricCompensatedkWh || undefined, invoice.eletricCompensatedValue || undefined),
+            new Energy(invoice.eletricHFPkWh || undefined, invoice.eletricHFPValue || undefined),
             invoice.publicLightingContribution
         ))
     }
@@ -46,9 +52,11 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             invoice.id,
             invoice.customerNumber,
             invoice.reference,
-            new Energy(invoice.eletricPowerkWh, invoice.eletricPowerValue),
-            new Energy(invoice.eletricSCEEEkWh, invoice.eletricSCEEEValue),
-            new Energy(invoice.eletricGDIkWh, invoice.eletricGDIValue),
+            new Energy(invoice.eletricPowerkWh || undefined, invoice.eletricPowerValue || undefined),
+            new Energy(invoice.eletricSCEEEkWh || undefined, invoice.eletricSCEEEValue || undefined),
+            new Energy(invoice.eletricGDIkWh || undefined, invoice.eletricGDIValue || undefined),
+            new Energy(invoice.eletricCompensatedkWh || undefined, invoice.eletricCompensatedValue || undefined),
+            new Energy(invoice.eletricHFPkWh || undefined, invoice.eletricHFPValue || undefined),
             invoice.publicLightingContribution
         ))
     }
