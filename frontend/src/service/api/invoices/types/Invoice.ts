@@ -1,6 +1,6 @@
 export type Invoice = {
     id: string
-    customerNumber: bigint
+    customerNumber: string
     reference: string
     eletricPower?: {
         kWh?: number
