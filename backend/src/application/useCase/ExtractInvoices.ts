@@ -1,5 +1,6 @@
 import InvoiceRepository from "application/repository/InvoiceRepository";
 import Invoice from "domain/entity/Invoice";
+import Energy from "domain/vo/Energy";
 import fs from 'fs';
 import path from 'path';
 import pdfParse from "pdf-parse";
@@ -22,6 +23,8 @@ export default class ExtractInvoices {
                 extractedData.eletricPower,
                 extractedData.eletricSCEEE,
                 extractedData.eletricGDI,
+                extractedData.eletricCompensated,
+                extractedData.eletricHFP,
                 extractedData.publicLightingContribution
             );
             await this.invoiceRepository.save(invoice);
@@ -31,22 +34,45 @@ export default class ExtractInvoices {
     private async extractDataFromPDF(filePath: string): Promise<any> {
         const pdf = fs.readFileSync(filePath);
         const text = (await pdfParse(pdf)).text;
-        const data = {
-            customerNumber: this.extractValueFromText(text, "Nº DA INSTALAÇÃO"),
-            reference: this.extractValueFromText(text, "Valor a pagar (R$)"),
-            eletricPower: {
-                quantityKWh: this.extractValueFromText(text, "Energia ElétricakWh"),
-                price: this.extractValueFromText(text, "Energia ElétricakWh", 10) // Passando o índice para obter o preço
-            },
-            eletricSCEEE: {
-                quantityKWh: this.extractValueFromText(text, "Energia SCEE s/ ICMSkWh"),
-                price: this.extractValueFromText(text, "Energia SCEE s/ ICMSkWh", 9) // Passando o índice para obter o preço
-            },
-            eletricGDI: {
-                quantityKWh: this.extractValueFromText(text, "Energia compensada GD IkWh"),
-                price: this.extractValueFromText(text, "Energia compensada GD IkWh", 8) // Passando o índice para obter o preço
-            },
-            publicLightingContribution: this.extractValueFromText(text, "Contrib Ilum Publica Municipal")
+        const data: any = {};
+        if (text.includes("Nº DA INSTALAÇÃO")) {
+            data.customerNumber = BigInt(this.extractValueFromText(text, "Nº DA INSTALAÇÃO"));
+        }
+        if (text.includes("Valor a pagar (R$)")) {
+            data.reference = this.extractValueFromText(text, "Valor a pagar (R$)");
+        }
+        if (text.includes("Energia ElétricakWh")) {
+            data.eletricPower = new Energy(
+                parseInt(this.extractValueFromText(text, "Energia ElétricakWh").replace('.', '')),
+                parseFloat(this.extractValueFromText(text, "Energia ElétricakWh", 10).replace(',', '.'))
+            );
+        }
+        if (text.includes("Energia SCEE s/ ICMSkWh")) {
+            data.eletricSCEEE = new Energy(
+                parseInt(this.extractValueFromText(text, "Energia SCEE s/ ICMSkWh").replace('.', '')),
+                parseFloat(this.extractValueFromText(text, "Energia SCEE s/ ICMSkWh", 9).replace(',', '.'))
+            );
+        }
+        if (text.includes("Energia compensada GD IkWh")) {
+            data.eletricGDI = new Energy(
+                parseInt(this.extractValueFromText(text, "Energia compensada GD IkWh").replace('.', '')),
+                parseFloat(this.extractValueFromText(text, "Energia compensada GD IkWh", 8).replace(',', '.'))
+            );
+        }
+        if (text.includes("En comp. s/ ICMSkWh")) {
+            data.eletricCompensated = new Energy(
+                parseInt(this.extractValueFromText(text, "En comp. s/ ICMSkWh").replace('.', '')),
+                parseFloat(this.extractValueFromText(text, "En comp. s/ ICMSkWh", 9).replace(',', '.'))
+            );
+        }
+        if (text.includes("Energia injetada HFPkWh")) {
+            data.eletricHFP = new Energy(
+                parseInt(this.extractValueFromText(text, "Energia injetada HFPkWh").replace('.', '')),
+                parseFloat(this.extractValueFromText(text, "Energia injetada HFPkWh", 8).replace(',', '.'))
+            );
+        }
+        if (text.includes("Contrib Ilum Publica Municipal")) {
+            data.publicLightingContribution = parseFloat(this.extractValueFromText(text, "Contrib Ilum Publica Municipal").split("\n")[0].replace(',', '.'));
         }
         return data;
     }
@@ -56,7 +82,7 @@ export default class ExtractInvoices {
         if (splitText.length > 1) {
             return splitText[1].trim().split(" ")[index];
         } else {
-            console.log(`Keyword "${keyword}" not found in text`)
+            // console.log(`Keyword "${keyword}" not found in text`)
             return "";
         }
     }
