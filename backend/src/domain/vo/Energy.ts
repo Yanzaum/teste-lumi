@@ -1,14 +1,17 @@
 export default class Energy {
-    constructor(
-        private quantityKWh: number,
-        private price: number,
-    ) {}
+    private quantityKWh: number;
+    private price: number;
 
-    getQuantityKWh() {
+    constructor(quantityKWh: number = 0, price: number = 0) {
+        this.quantityKWh = quantityKWh;
+        this.price = price;
+    }
+
+    getQuantityKWh(): number {
         return this.quantityKWh;
     }
 
-    getPrice() {
+    getPrice(): number {
         return this.price;
     }
 }
