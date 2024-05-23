@@ -1,0 +1,11 @@
+-- AlterTable
+ALTER TABLE "invoices" ADD COLUMN     "eletricCompensatedValue" DOUBLE PRECISION,
+ADD COLUMN     "eletricCompensatedkWh" INTEGER,
+ADD COLUMN     "eletricHFPValue" DOUBLE PRECISION,
+ADD COLUMN     "eletricHFPkWh" INTEGER,
+ALTER COLUMN "eletricPowerkWh" DROP NOT NULL,
+ALTER COLUMN "eletricPowerValue" DROP NOT NULL,
+ALTER COLUMN "eletricSCEEEkWh" DROP NOT NULL,
+ALTER COLUMN "eletricSCEEEValue" DROP NOT NULL,
+ALTER COLUMN "eletricGDIkWh" DROP NOT NULL,
+ALTER COLUMN "eletricGDIValue" DROP NOT NULL;

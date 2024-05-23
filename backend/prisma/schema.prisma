@@ -17,12 +17,16 @@ model Invoice {
   id                         String @id
   customerNumber             BigInt
   reference                  String
-  eletricPowerkWh            Int
-  eletricPowerValue          Float
-  eletricSCEEEkWh            Int
-  eletricSCEEEValue          Float
-  eletricGDIkWh              Int
-  eletricGDIValue            Float
+  eletricPowerkWh            Int?
+  eletricPowerValue          Float?
+  eletricSCEEEkWh            Int?
+  eletricSCEEEValue          Float?
+  eletricGDIkWh              Int?
+  eletricGDIValue            Float?
+  eletricCompensatedkWh      Int?
+  eletricCompensatedValue    Float?
+  eletricHFPkWh              Int?
+  eletricHFPValue            Float?
   publicLightingContribution Float
 
   createdAt DateTime @default(now())
