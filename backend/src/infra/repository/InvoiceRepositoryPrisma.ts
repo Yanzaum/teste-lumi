@@ -13,15 +13,15 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
                 customerNumber: invoice.getCustomerNumber(),
                 reference: invoice.getReference(),
                 eletricPowerkWh: invoice.getEletricPower()?.getQuantityKWh(),
-                eletricPowerValue: invoice.getEletricPower()?.getPrice(),
+                eletricPowerValue: invoice.getEletricPower()?.getValue(),
                 eletricSCEEEkWh: invoice.getEletricSCEEE()?.getQuantityKWh(),
-                eletricSCEEEValue: invoice.getEletricSCEEE()?.getPrice(),
+                eletricSCEEEValue: invoice.getEletricSCEEE()?.getValue(),
                 eletricGDIkWh: invoice.getEletricGDI()?.getQuantityKWh(),
-                eletricGDIValue: invoice.getEletricGDI()?.getPrice(),
+                eletricGDIValue: invoice.getEletricGDI()?.getValue(),
                 eletricCompensatedkWh: invoice.getEletricCompensated()?.getQuantityKWh(),
-                eletricCompensatedValue: invoice.getEletricCompensated()?.getPrice(),
+                eletricCompensatedValue: invoice.getEletricCompensated()?.getValue(),
                 eletricHFPkWh: invoice.getEletricHFP()?.getQuantityKWh(),
-                eletricHFPValue: invoice.getEletricHFP()?.getPrice(),
+                eletricHFPValue: invoice.getEletricHFP()?.getValue(),
                 publicLightingContribution: invoice.getPublicLightingContribution()
             }
         })

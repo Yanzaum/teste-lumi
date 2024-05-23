@@ -11,7 +11,7 @@ export default class Energy {
         return this.quantityKWh;
     }
 
-    getPrice(): number {
+    getValue(): number {
         return this.price;
     }
 }

@@ -11,23 +11,23 @@ export default class GetAllInvoices {
             reference: invoice.getReference(),
             eletricPower: {
                 quantityKWh: invoice.getEletricPower()?.getQuantityKWh(),
-                value: invoice.getEletricPower()?.getPrice()
+                value: invoice.getEletricPower()?.getValue()
             },
             eletricSCEEE: {
                 quantityKWh: invoice.getEletricSCEEE()?.getQuantityKWh(),
-                value: invoice.getEletricSCEEE()?.getPrice()
+                value: invoice.getEletricSCEEE()?.getValue()
             },
             eletricGDI: {
                 quantityKWh: invoice.getEletricGDI()?.getQuantityKWh(),
-                value: invoice.getEletricGDI()?.getPrice()
+                value: invoice.getEletricGDI()?.getValue()
             },
             eletricCompensated: {
                 quantityKWh: invoice.getEletricCompensated()?.getQuantityKWh(),
-                value: invoice.getEletricCompensated()?.getPrice()
+                value: invoice.getEletricCompensated()?.getValue()
             },
             eletricHFP: {
                 quantityKWh: invoice.getEletricHFP()?.getQuantityKWh(),
-                value: invoice.getEletricHFP()?.getPrice()
+                value: invoice.getEletricHFP()?.getValue()
             },
             publicLightingContribution: invoice.getPublicLightingContribution()
         }));
