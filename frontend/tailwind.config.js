@@ -134,5 +134,6 @@ export default {
     require('@headlessui/tailwindcss'),
     require('@tailwindcss/forms')
   ],
+  darkMode: 'class',
 }
 
