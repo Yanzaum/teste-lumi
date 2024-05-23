@@ -10,8 +10,9 @@ export default class InvoiceController {
         readonly getInvoicesByCustomerNumber: GetInvoicesByCustomerNumber,
         readonly extractInvoices: ExtractInvoices
 	) {
-		httpServer.register("get", "/api/invoices", async function (params: any, body: any) {
-			const output = await getAllInvoices.execute();
+		httpServer.register("get", "/api/invoices", async function (params: any, body: any, query: any) {
+            const { search } = query;
+			const output = await getAllInvoices.execute(search);
 			return {
 				body: output
 			};
