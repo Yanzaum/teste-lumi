@@ -20,6 +20,9 @@ export class ExpressAdapter implements HttpServer {
 				if (output.statusCode) {
 					res.status(output.statusCode);
 				}
+				if (output.file) {
+					return res.download('invoices/'+output.body);
+				}
 				res.json(output.body);
 			} catch (error: any) {
 				res.status(error.statusCode || 500).json({
