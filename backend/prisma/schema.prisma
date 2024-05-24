@@ -28,6 +28,7 @@ model Invoice {
   eletricHFPkWh              Int?
   eletricHFPValue            Float?
   publicLightingContribution Float
+  filename                   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
