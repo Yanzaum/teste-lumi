@@ -4,7 +4,10 @@
 GET {{ baseUrl }}/invoices
 
 ###
-GET {{ baseUrl }}/invoices/1
+GET {{ baseUrl }}/invoices/8f054335-9ffc-47aa-85b9-f8a2d7baa93b
 
 ###
 POST {{ baseUrl }}/invoices/extract
+
+###
+GET {{ baseUrl }}/invoices/8f054335-9ffc-47aa-85b9-f8a2d7baa93b/download
