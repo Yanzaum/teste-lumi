@@ -195,7 +195,6 @@ export default function App() {
                 colors={getColorsTremor(economyGDKeys.length)}
                 valueFormatter={dataFormatter}
                 yAxisWidth={60}
-                onValueChange={(v) => console.log(v)}
                 xAxisLabel="Mês do ano"
                 yAxisLabel="Custos (R$)"
               />
