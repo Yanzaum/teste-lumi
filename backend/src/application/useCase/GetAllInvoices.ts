@@ -34,7 +34,8 @@ export default class GetAllInvoices {
                 kWh: invoice.getEletricHFP()?.getQuantityKWh(),
                 value: invoice.getEletricHFP()?.getValue()
             },
-            publicLightingContribution: invoice.getPublicLightingContribution()
+            publicLightingContribution: invoice.getPublicLightingContribution(),
+            filename: invoice.getFilename()
         }));
     }
 }
