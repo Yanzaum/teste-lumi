@@ -11,7 +11,8 @@ export default class Invoice {
         private eletricGDI: Energy | null,
         private eletricCompensated: Energy | null,
         private eletricHFP: Energy | null,
-        private publicLightingContribution: number
+        private publicLightingContribution: number,
+        private filename: string
     ) {}
 
     static create(
@@ -22,7 +23,8 @@ export default class Invoice {
         eletricGDI: Energy | null,
         eletricCompensated: Energy | null,
         eletricHFP: Energy | null,
-        publicLightingContribution: number
+        publicLightingContribution: number,
+        filename: string
     ) {
         return new Invoice(
             crypto.randomUUID(),
@@ -33,7 +35,8 @@ export default class Invoice {
             eletricGDI,
             eletricCompensated,
             eletricHFP,
-            publicLightingContribution
+            publicLightingContribution,
+            filename,
         );
     }
 
@@ -46,7 +49,8 @@ export default class Invoice {
         eletricGDI: Energy | null,
         eletricCompensated: Energy | null,
         eletricHFP: Energy | null,
-        publicLightingContribution: number
+        publicLightingContribution: number,
+        filename: string
     ) {
         return new Invoice(
             id,
@@ -57,7 +61,8 @@ export default class Invoice {
             eletricGDI,
             eletricCompensated,
             eletricHFP,
-            publicLightingContribution
+            publicLightingContribution,
+            filename
         );
     }
 
@@ -95,5 +100,9 @@ export default class Invoice {
 
     getEletricHFP() {
         return this.eletricHFP;
+    }
+
+    getFilename() {
+        return this.filename;
     }
 }

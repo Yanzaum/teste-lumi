@@ -25,7 +25,8 @@ export default class ExtractInvoices {
                 extractedData.eletricGDI,
                 extractedData.eletricCompensated,
                 extractedData.eletricHFP,
-                extractedData.publicLightingContribution
+                extractedData.publicLightingContribution,
+                file
             );
             await this.invoiceRepository.save(invoice);
         }

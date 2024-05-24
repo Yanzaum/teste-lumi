@@ -22,7 +22,8 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
                 eletricCompensatedValue: invoice.getEletricCompensated()?.getValue(),
                 eletricHFPkWh: invoice.getEletricHFP()?.getQuantityKWh(),
                 eletricHFPValue: invoice.getEletricHFP()?.getValue(),
-                publicLightingContribution: invoice.getPublicLightingContribution()
+                publicLightingContribution: invoice.getPublicLightingContribution(),
+                filename: invoice.getFilename()
             }
         })
     }
@@ -38,8 +39,30 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             new Energy(invoice.eletricGDIkWh || undefined, invoice.eletricGDIValue || undefined),
             new Energy(invoice.eletricCompensatedkWh || undefined, invoice.eletricCompensatedValue || undefined),
             new Energy(invoice.eletricHFPkWh || undefined, invoice.eletricHFPValue || undefined),
-            invoice.publicLightingContribution
+            invoice.publicLightingContribution,
+            invoice.filename
         ))
+    }
+
+    async getById(id: string): Promise<Invoice> {
+        const invoice = await this.prisma.invoice.findUnique({
+            where: {
+                id: id
+            }
+        })
+        if (!invoice) throw new Error("Invoice not found")
+        return Invoice.restore(
+            invoice.id,
+            invoice.customerNumber,
+            invoice.reference,
+            new Energy(invoice.eletricPowerkWh || undefined, invoice.eletricPowerValue || undefined),
+            new Energy(invoice.eletricSCEEEkWh || undefined, invoice.eletricSCEEEValue || undefined),
+            new Energy(invoice.eletricGDIkWh || undefined, invoice.eletricGDIValue || undefined),
+            new Energy(invoice.eletricCompensatedkWh || undefined, invoice.eletricCompensatedValue || undefined),
+            new Energy(invoice.eletricHFPkWh || undefined, invoice.eletricHFPValue || undefined),
+            invoice.publicLightingContribution,
+            invoice.filename
+        )
     }
 
     async getByCustomerNumber(customerNumber: bigint): Promise<Invoice[]> {
@@ -57,7 +80,8 @@ export default class InvoiceRepositoryPrisma implements InvoiceRepository {
             new Energy(invoice.eletricGDIkWh || undefined, invoice.eletricGDIValue || undefined),
             new Energy(invoice.eletricCompensatedkWh || undefined, invoice.eletricCompensatedValue || undefined),
             new Energy(invoice.eletricHFPkWh || undefined, invoice.eletricHFPValue || undefined),
-            invoice.publicLightingContribution
+            invoice.publicLightingContribution,
+            invoice.filename
         ))
     }
 }
