@@ -14,7 +14,8 @@ describe("InvoiceRepositoryPrisma", () => {
       new Energy(1299, -633.04),
       new Energy(1121, -732.15),
       new Energy(1299, 0),
-      41.19
+      41.19,
+      "2023-01-01",
     )
   
     beforeAll(async () => {
