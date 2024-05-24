@@ -16,4 +16,11 @@ export class APIInvoiceService implements InvoiceGateway {
         const response = await api.get(`/invoices/${id}`);
         return response.data;
     }
+
+    async downloadInvoice(id: string): Promise<Blob> {
+        const response = await api.get(`/invoices/${id}/download`, {
+            responseType: "blob",
+        });
+        return new Blob([response.data], { type: "application/pdf" });
+    }
 }
