@@ -22,5 +22,6 @@ export type Invoice = {
         kWh?: number
         value?: number
     }
-    publicLightingContributionValue: number
+    publicLightingContribution: number
+    filename: string
 }
